@@ -14,18 +14,23 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 public class Paiement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idPaiement;
-    BigDecimal montant;
-    LocalDate datePaiement;
+    private Long idPaiement;
+
+    @Column(nullable = false)
+    private BigDecimal montant;
+
+    @Column(nullable = false)
+    private LocalDate datePaiement;
+
     @Enumerated(EnumType.STRING)
-    ModePaiement modePaiement;
+    @Column(nullable = false)
+    private ModePaiement modePaiement;
 
     @ManyToOne
-    @JoinColumn(name = "idContrat")
+    @JoinColumn(name = "idContrat", nullable = false)
     private Contrat contrat;
 }

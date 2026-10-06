@@ -1,7 +1,11 @@
 package tn.esprit.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
 @Entity
@@ -15,17 +19,21 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idReservation;
 
+    @Column(nullable = false)
     private LocalDate dateDebut;
+
+    @Column(nullable = false)
     private LocalDate dateFin;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StatutReservation statut;
 
     @ManyToOne
-    @JoinColumn(name = "idVehicule")
+    @JoinColumn(name = "idVehicule", nullable = false)
     private Vehicule vehicule;
 
     @ManyToOne
-    @JoinColumn(name = "idClient")
+    @JoinColumn(name = "idClient", nullable = false)
     private Client client;
 }

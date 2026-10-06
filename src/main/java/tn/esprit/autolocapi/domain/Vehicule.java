@@ -1,7 +1,11 @@
 package tn.esprit.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -16,20 +20,28 @@ public class Vehicule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idVehicule;
 
+    @Column(nullable = false, unique = true)
     private String immatriculation;
+
+    @Column(nullable = false)
     private String marque;
+
+    @Column(nullable = false)
     private String modele;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private CategorieVehicule categorie;
 
+    @Column(nullable = false)
     private BigDecimal tarifJournalier;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StatutVehicule statut;
 
     @ManyToOne
-    @JoinColumn(name = "idAgence")
+    @JoinColumn(name = "idAgence", nullable = false)
     private Agence agence;
 
     @ManyToMany

@@ -1,9 +1,13 @@
 package tn.esprit.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -17,12 +21,17 @@ public class Contrat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idContrat;
 
+    @Column(nullable = false)
     private LocalDate dateSignature;
+
+    @Column(nullable = false)
     private BigDecimal montantTotal;
+
+    @Column(nullable = false)
     private boolean valide;
 
     @OneToOne
-    @JoinColumn(name = "idReservation")
+    @JoinColumn(name = "idReservation", nullable = false, unique = true)
     private Reservation reservation;
 
     @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, orphanRemoval = true)
