@@ -1,29 +1,30 @@
 package tn.esprit.autolocapi.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.autolocapi.domain.Vehicule;
-import tn.esprit.autolocapi.service.VehiculeService;
+import tn.esprit.autolocapi.service.IVehiculeService;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vehicules")
+@AllArgsConstructor
+@RequestMapping("/vehicules")
 public class VehiculeController {
-    private final VehiculeService service;
+    private final IVehiculeService vehiculeService;
 
-    public VehiculeController(VehiculeService service) { this.service = service; }
-
-    @GetMapping
-    public List<Vehicule> lister() { return service.lister(); }
-
-    @GetMapping("/{id}")
-    public Vehicule obtenir(@PathVariable Long id) { return service.obtenir(id); }
-
-    @PostMapping
-    public Vehicule ajouter(@RequestBody Vehicule v) { return service.enregistrer(v); }
-
-    @PutMapping
-    public Vehicule modifier(@RequestBody Vehicule v) { return service.enregistrer(v); }
-
-    @DeleteMapping("/{id}")
-    public void supprimer(@PathVariable Long id) { service.supprimer(id); }
+    @PostMapping("/ajouterVehicule")
+    public Vehicule ajouterVehicule(@RequestBody Vehicule vehicule){
+        return vehiculeService.ajouterVehicule(vehicule);
+    }
+    @PutMapping("/modifierVehicule")
+    public Vehicule modifierVehicule(@RequestBody Vehicule vehicule){
+        return vehiculeService.modifierVehicule(vehicule);
+    }
+    @GetMapping("/getAllVehicules")
+    public List<Vehicule> getAllVehicule() { return vehiculeService.getAllVehicule(); }
+    @GetMapping("/recupererVehicule/{id}")
+    public Vehicule getVehiculeById(@PathVariable Long id) { return vehiculeService.getVehiculeById(id); }
+    @DeleteMapping("/deleteVehiculeById/{id}")
+    public void supprimerVehiculeById(@PathVariable Long id) { vehiculeService.supprimerVehiculeById(id); }
 }

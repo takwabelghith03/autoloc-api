@@ -1,10 +1,8 @@
 package tn.esprit.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -12,23 +10,19 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Maintenance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMaintenance;
+    Long idMaintenance;
 
-    @Column(nullable = false)
-    private LocalDate dateDebut;
+    LocalDate dateDebut;
+    LocalDate dateFin;
 
-    @Column(nullable = true)
-    private LocalDate dateFin;
+    @NotBlank
+    String description;
 
-    @Column(nullable = false)
-    private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "idVehicule", nullable = false)
-    private Vehicule vehicule;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_vehicule")
+    Vehicule vehicule;
 }

@@ -1,10 +1,9 @@
 package tn.esprit.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -12,28 +11,25 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idClient;
+    Long idClient;
 
-    @Column(nullable = false)
-    private String nom;
+    @NotBlank
+    String nom;
 
-    @Column(nullable = false)
-    private String prenom;
+    @NotBlank
+    String prenom;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Email
+    String email;
 
-    @Column(nullable = false)
-    private String telephone;
+    String telephone;
 
-    @Column(nullable = false, unique = true)
-    private String numPermis;
+    @NotBlank
+    String numPermis;
 
-    @Column(nullable = false)
-    private LocalDate dateInscription;
+    LocalDate dateInscription;
 }

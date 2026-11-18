@@ -1,10 +1,8 @@
 package tn.esprit.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Positive;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,25 +10,22 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Paiement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPaiement;
+    Long idPaiement;
 
-    @Column(nullable = false)
-    private BigDecimal montant;
+    @Positive
+    BigDecimal montant;
 
-    @Column(nullable = false)
-    private LocalDate datePaiement;
+    LocalDate datePaiement;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ModePaiement modePaiement;
+    ModePaiement modePaiement;
 
-    @ManyToOne
-    @JoinColumn(name = "idContrat", nullable = false)
-    private Contrat contrat;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_contrat")
+    Contrat contrat;
 }
