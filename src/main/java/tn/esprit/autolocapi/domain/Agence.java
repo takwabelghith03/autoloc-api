@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -20,4 +22,7 @@ public class Agence {
     String ville;
     String adresse;
     String telephone;
+
+    @OneToMany(mappedBy = "agence")
+    List<Vehicule> vehicules;
 }
